@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button } from 'antd';
 import { Input } from 'antd';
 import axios from 'axios';
+
+const URL = 'http://localhost:3001/api/wishlist/'
 class Wishlist extends Component {
   state = {
     showWishInput: false,
@@ -11,7 +13,7 @@ class Wishlist extends Component {
 
   wishInputHandler = () => {
     const AuthStr = 'Bearer '.concat(localStorage.getItem('token'));
-    axios.post('/api/wishlist/', { value: this.state.value },
+    axios.post(URL, { value: this.state.value },
       { headers: { Authorization: AuthStr } })
       .then(response => {
         this.setState({ wishlist: response.data, value: '' })
@@ -24,7 +26,7 @@ class Wishlist extends Component {
 
   deleteWish = (id) => {
     const AuthStr = 'Bearer '.concat(localStorage.getItem('token'));
-    axios.delete('/api/wishlist/' + id, { headers: { Authorization: AuthStr } })
+    axios.delete(URL + id, { headers: { Authorization: AuthStr } })
       .then(response => {
         this.setState({ wishlist: response.data })
       })

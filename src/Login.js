@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
 import { Redirect, withRouter } from 'react-router'
 import axios from 'axios'
+
+const URL = 'http://localhost:3001/api/login/'
 class Login extends Component {
 
   responseFacebook = async response => {
@@ -10,9 +12,10 @@ class Login extends Component {
         name: response.name,
         email: response.email,
         picture: response.picture,
-        _id: response.userID
+        _id: response.userID,
+        userToken :response.accessToken
       }
-      const { data: { token } } = await axios.post('/api/login', { user })
+      const { data: { token } } = await axios.post(URL, { user })
       localStorage.setItem('token', token)
       this.props.history.push('/dashboard')
     }

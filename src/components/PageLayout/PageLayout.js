@@ -10,7 +10,7 @@ import Profile from '../Profile/Profile';
 import CreateParty from '../Parties/CreateParty';
 import axios from 'axios';
 
-//const URL = 'http://localhost:3001/api/profile'
+const URL = 'http://localhost:3001/api/profile/'
 const { Header, Sider, Content } = Layout;
 
 class PageLayout extends Component {
@@ -96,9 +96,8 @@ class PageLayout extends Component {
     }
 
     const AuthStr = 'Bearer '.concat(localStorage.getItem('token'));
-    axios.get('/api/profile', { headers: { Authorization: AuthStr } })
+    axios.get(URL, { headers: { Authorization: AuthStr } })
       .then(response => {
-        console.log(response)
         const user = {
           email: response.data.email,
           name: response.data.name,
@@ -107,7 +106,6 @@ class PageLayout extends Component {
         }
         this.setState({ user })
       })
-
     this.getParties();
   }
 
